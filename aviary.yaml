@@ -1,0 +1,11 @@
+version: 1
+
+exclude:
+
+raven_monitored_classes:
+
+raven_monitored_files:
+
+raven_monitored_functions:
+
+raven_monitored_keywords:
