@@ -98,7 +98,7 @@ In this library, we have forked `defn`, splitting it into its two fundamental co
 
 In the line above, `^{::m/aspects [...]}` tells Clojure's [reader](https://clojure.org/reference/reader) to attach a map of metadata to a symbol. `morphe.core/defn` parses the function definition as normal, then examines the symbol's metadata to determine which aspects it is tagged with. The library then calls the tagged aspect functions to modify the parsed form. Once all such tags have been applied, Morphe's `defn` passes the parsed form along to the writer, just as `clojure.core/defn` implicitly would have done.
 
-It is fairly straightforward to modify the FnForm record. But `defmodfn` provides a number of conveniences to make writing common aspect transformations even simpler; for example, wrapping the whole definition (perhaps in the body of a `let`), or prefixing every body of the function (perhaps with generated log statements). For instance, defining a simple trace-level logging transformation is easy:
+It is fairly straightforward to modify the FnForm record. But `morphe` provides a number of conveniences to make writing common aspect transformations even simpler; for example, wrapping the whole definition (perhaps in the body of a `let`), or prefixing every body of the function (perhaps with generated log statements). For instance, defining a simple trace-level logging transformation is easy:
 
 ```clojure
 (defn traced
