@@ -4,6 +4,11 @@
 > 
 > Aristotle, *Metaphysics*
 
+```
+[com.workiva/morphe "1.0.0"]
+```
+---
+
 Gather round, and I shall tell you a fine tale. Once upon a time, there was a simple function in an API, a thin wrapper over more meaty code:
 
 ```clojure
