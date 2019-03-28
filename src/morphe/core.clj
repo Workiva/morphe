@@ -21,7 +21,7 @@
 
 (defrecord FnForm [env wrapper namespace metadata fn-name arglists bodies])
 
-(defn- ^{:dynamic true} assert-valid-fdecl ;; <== totally ripped out of Clojure.core.
+(defn- ^{:dynamic true} assert-valid-fdecl ;; From Clojure.core
   "A good fdecl looks like (([a] ...) ([a b] ...)) near the end of defn."
   [fdecl]
   (when (empty? fdecl) (throw (IllegalArgumentException.
@@ -39,7 +39,7 @@
       (throw (IllegalArgumentException. (str "Parameter declaration \"" (first bad-args)
                                              "\" should be a vector"))))))
 
-(defn- sigs ;; <== also totally ripped out of Clojure.core
+(defn- sigs ;; From Clojure.core
   [fdecl]
   (assert-valid-fdecl fdecl)
   (let [asig (fn [fdecl]
