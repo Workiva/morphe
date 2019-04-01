@@ -27,20 +27,22 @@ jobs:
 
   bundle_dependencies:
     docker:
-      - image: circleci/clojure:lein-2.8.3
+      - image: circleci/clojure:lein-2.8.3-node
     working_directory: ~/build
     steps:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
+            - v1-node-dependencies-{{ checksum "package.json" }}
       - run: lein deps
+      - run: npm install markdown-toc
       - save_cache:
           key: v1-dependencies-{{ checksum "project.clj" }}
           paths:
             - ~/.m2
+      - save_cache:
+          key: v1-node-dependencies-{{ checksum "package.json" }}
 
   lint_code:
     docker:
@@ -66,7 +68,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "project.clj" }}
-      - run: npm install -g markdown-toc
       - run: ./circleci/scripts/verify-docs.sh
       - run: cd ./documentation && tar cvfz "../morphe-docs.tgz" ./
       - store_artifacts:
