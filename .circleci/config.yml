@@ -72,8 +72,10 @@ jobs:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: ./.circleci/scripts/verify-docs.sh
       - run: cd ./documentation && tar cvfz "../morphe-docs.tgz" ./
+      - run: mkdir -p ./artifacts/docs
+      - run: mv ./morphe-docs.tgz ./artifacts/docs/
       - store_artifacts:
-          path: ./morphe-docs.tgz
+          path: ./artifacts
 
   verify_license_headers:
     docker:
@@ -113,8 +115,10 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: lein jar
+      - run: mkdir -p ./artifacts/jars
+      - run: mv ./target/morphe-*.jar ./artifacts/jars/
       - store_artifacts:
-          path: ./target/morphe-*.jar
+          path: ./artifacts
 
   # Verify that internal CI system will not fail after a merged PR
   verify_docker_build:
