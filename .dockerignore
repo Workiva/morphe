@@ -1,0 +1,6 @@
+workivabuild.Dockerfile
+
+# .gitignore Contents
+/node_modules
+/target
+package-lock.json

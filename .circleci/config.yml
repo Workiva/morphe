@@ -43,6 +43,8 @@ jobs:
             - ~/.m2
       - save_cache:
           key: v1-node-dependencies-{{ checksum "package.json" }}
+          paths:
+            - ~/node_modules
 
   lint_code:
     docker:
@@ -125,7 +127,7 @@ jobs:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker:
           docker_layer_caching: false
-      - run: docker build -f workivabuild.Dockerfile .
+      - run: ./.circleci/scripts/verify-dockerfile.sh
 
   deploy_clojars:
     docker:
