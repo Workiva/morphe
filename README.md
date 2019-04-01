@@ -8,7 +8,9 @@
 
 <!-- toc -->
 
+- [What Is It?](#what-is-it)
 - [How does it work?](#how-does-it-work)
+- [API Documentation](#api-documentation)
 - [Details](#details)
 - [`morphe.core` utilities](#morphecore-utilities)
     + [`defn`](#defn)
@@ -28,6 +30,8 @@
     + [Contributors](#contributors)
 
 <!-- tocstop -->
+
+## What Is It?
 
 Gather round, and I shall tell you a fine tale. Once upon a time, there was a simple function in an API, a thin wrapper over more meaty code:
 
@@ -148,6 +152,10 @@ This is equivalent to the following method, which does not use any convenience f
                                              namespaced-fn-name
                                              args)))))))
 ```
+
+## API Documentation
+
+[API documentation can be found here.](/documentation/index.html)
 
 ## Details
 

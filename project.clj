@@ -12,11 +12,14 @@
   :source-paths      ["src"]
   :test-paths        ["test"]
   
-  :aliases {"docs" ["do" "clean-docs," "codox"]
+  :aliases {"docs" ["do" "clean-docs," "with-profile" "docs" "codox,"]
             "clean-docs" ["shell" "rm" "-rf" "./documentation"]}
 
-  :codox {:output-path "documentation"
+  :codox {:metadata {:doc/format :markdown}
+          :themes [:rdash]
+          :output-path "documentation"
           :namespaces [morphe.core]}
 
   :profiles {:dev [{:dependencies [[criterium "0.4.3"]]
-                    :source-paths ["dev/src"]}]})
+                    :source-paths ["dev/src"]}]
+             :docs {:dependencies [[codox-theme-rdash "0.1.2"]]}})

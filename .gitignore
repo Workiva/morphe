@@ -1,3 +1,5 @@
 /node_modules
 /target
 package-lock.json
+/_site
+Gemfile.lock
