@@ -35,7 +35,7 @@
 (defn prefixed-bodies
   [fn-form]
   (m/prefix-bodies fn-form
-    `(->side '~[(ns-name &ns) &name &meta &env-keys &params])))
+                   `(->side '~[(ns-name &ns) &name &meta &env-keys &params])))
 
 (let [zebra 100]
   (m/defn ^{::m/aspects [prefixed-bodies]}
@@ -71,8 +71,8 @@
 (defn altered-bodies
   [fn-form]
   (m/alter-bodies fn-form
-    `(do (->side '~[(ns-name &ns) &name &meta &env-keys &params &body])
-         ~@&body)))
+                  `(do (->side '~[(ns-name &ns) &name &meta &env-keys &params &body])
+                       ~@&body)))
 
 (let [oryx 55]
   (m/defn ^{::m/aspects [altered-bodies]}
@@ -101,7 +101,7 @@
 (defn prefixed-form
   [fn-form]
   (m/prefix-form fn-form
-    `(->side '~[(ns-name &ns) &name &meta &env-keys])))
+                 `(->side '~[(ns-name &ns) &name &meta &env-keys])))
 
 (deftest test:prefix-form
   (let [hartebeest :kongoni]
@@ -117,8 +117,8 @@
 (defn altered-form
   [fn-form]
   (m/alter-form fn-form
-    `(do (->side '~[(ns-name &ns) &name &meta &env-keys])
-         ~&form)))
+                `(do (->side '~[(ns-name &ns) &name &meta &env-keys])
+                     ~&form)))
 
 (deftest test:alter-form
   (let [springbok :shorty-pants]

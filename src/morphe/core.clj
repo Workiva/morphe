@@ -176,7 +176,7 @@
     :arglists - A sequence of arglists, one for each arity.
     :bodies - A sequence of arity bodies, where each body is a collection of expressions."
   {:arglists '([name doc-string? attr-map? [params*] prepost-map? body]
-               [name doc-string? attr-map? ([params*] prepost-map? body)+ attr-map?])}
+               [name doc-string? attr-map? ([params*] prepost-map? body) + attr-map?])}
   [fn-name & fdecl]
   (let [aspects (get (meta fn-name) ::aspects)
         fn-form (apply parse-defn &form &env fn-name fdecl)]
@@ -260,8 +260,8 @@
                         (anaphoric-scope sym:fn-form '#{&ns &name &env-keys &meta}))]
     `(let [~sym:fn-form ~fn-form]
        (alter-form ~sym:fn-form
-         `(do ~~expression
-              ~~'&form)))))
+                   `(do ~~expression
+                        ~~'&form)))))
 
 (defn alter-bodies*
   "Takes a fn-form and a function of args [params body] and replaces each body

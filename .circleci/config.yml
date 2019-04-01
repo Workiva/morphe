@@ -70,7 +70,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "project.clj" }}
-      - run: ./circleci/scripts/verify-docs.sh
+      - run: ./.circleci/scripts/verify-docs.sh
       - run: cd ./documentation && tar cvfz "../morphe-docs.tgz" ./
       - store_artifacts:
           path: ./morphe-docs.tgz
