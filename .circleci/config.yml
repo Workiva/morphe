@@ -1,0 +1,207 @@
+version: 2.1
+
+commands:
+  early_return_for_forked_pull_requests:
+    description: >-
+      If this build is from a fork, stop executing the current job and return success.
+      This is useful to avoid steps that will fail due to missing credentials.
+    steps:
+      - run:
+          name: Early return if this build is from a forked PR
+          command: |
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              echo "Nothing to do for forked PRs, so marking this step successful"
+              circleci step halt
+            fi
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/build
+
+  bundle_dependencies:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: lein deps
+      - save_cache:
+          key: v1-dependencies-{{ checksum "project.clj" }}
+          paths:
+            - ~/.m2
+
+  lint_code:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: lein cljfmt check
+
+  verify_docs:
+    docker:
+      - image: circleci/clojure:lein-2.8.3-node
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: npm install -g markdown-toc
+      - run: ./circleci/scripts/verify-docs.sh
+      - run: cd ./documentation && tar cvfz "../morphe-docs.tgz" ./
+      - store_artifacts:
+          path: ./morphe-docs.tgz
+
+  verify_license_headers:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: ./.circleci/scripts/verify-license-headers.sh "clj" "^;; Copyright 2017-[0-9]{4} Workiva Inc.$" project.clj profiles.clj
+
+  unit_tests:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: lein test
+
+  build_jar:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: lein jar
+      - store_artifacts:
+          path: ./target/morphe-*.jar
+
+  # Verify that internal CI system will not fail after a merged PR
+  verify_docker_build:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run: docker build -f workivabuild.Dockerfile .
+
+  deploy_clojars:
+    docker:
+      - image: circleci/clojure:lein-2.8.3
+    working_directory: ~/build
+    steps:
+      - early_return_for_forked_pull_requests
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "project.clj" }}
+      - run: cp ./.circleci/clojars/profiles.clj ~/.lein/profiles.clj
+      - run: lein deploy clojars
+
+workflows:
+  lint_build_deploy:
+    jobs:
+      - checkout_code:
+          filters:
+            tags:
+              only: /.*/
+      - bundle_dependencies:
+          requires:
+            - checkout_code
+          filters:
+            tags:
+              only: /.*/
+      - verify_license_headers:
+          requires:
+            - checkout_code
+          filters:
+            tags:
+              only: /.*/
+      - verify_docker_build:
+          requires:
+            - checkout_code
+          filters:
+            tags:
+              only: /.*/
+      - lint_code:
+          requires:
+            - bundle_dependencies
+          filters:
+            tags:
+              only: /.*/
+      - verify_docs:
+          requires:
+            - bundle_dependencies
+          filters:
+            tags:
+              only: /.*/
+      - unit_tests:
+          requires:
+            - bundle_dependencies
+          filters:
+            tags:
+              only: /.*/
+      - build_jar:
+          requires:
+            - verify_license_headers
+            - verify_docker_build
+            - lint_code
+            - verify_docs
+            - unit_tests
+          filters:
+            tags:
+              only: /.*/
+      - deploy_clojars:
+          context: Clojars
+          requires:
+            - build_jar
+          # Only run on tagged builds starting with 'v'
+          # Therefore, releases MUST start with 'v'
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
