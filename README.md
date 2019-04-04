@@ -26,8 +26,9 @@
   * [Tagging for metrics](#tagging-for-metrics)
   * [Mix & match](#mix--match)
   * [Macrotic Transformations](#macrotic-transformations)
-- [Contributing](#contributing)
-    + [Contributors](#contributors)
+- [Maintainers and Contributors](#maintainers-and-contributors)
+  * [Active Maintainers](#active-maintainers)
+  * [Previous Contributors](#previous-contributors)
 
 <!-- tocstop -->
 
@@ -436,16 +437,12 @@ In the examples so far, similar effects could be achieved via (possibly clunky) 
        (expensive-calculation x))))
 ```
 
-## Contributing
+## Maintainers and Contributors
 
-1. Branch and PR to master
-2. Maintainers will review.
+### Active Maintainers
 
-Guidelines:
+-
 
- * [generally good style](https://github.com/bbatsov/clojure-style-guide)
- * [clear commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
- * tests where appropriate
+### Previous Contributors
 
-#### Contributors
-Timothy Dean <[timothy.dean@workiva.com](mailto:timothy.dean@workiva.com)>
+- Timothy Dean <galdre@gmail.com>

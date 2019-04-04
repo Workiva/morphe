@@ -7,10 +7,6 @@
   width: 900px;
 }
 
-ul {
-  margin-bottom: 10px;
-}
-
 a {
   > code {
     margin-bottom: 0px;
@@ -24,7 +20,11 @@ a {
 ul {
   li {
     padding-left: 10px;
+    ul {
+      margin-bottom: 0px;
+    }
   }
+  margin-bottom: 20px;
   margin-left: 0;
   padding-left: 10px;
 }
