@@ -1,4 +1,4 @@
-# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe) [![CircleCI](https://circleci.com/gh/Workiva/morphe.svg?style=svg)](https://circleci.com/gh/Workiva/morphe)
+# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe) [![CircleCI](https://circleci.com/gh/Workiva/morphe/tree/master.svg?style=svg)](https://circleci.com/gh/Workiva/morphe/tree/master)
 
 > "Thus if we regard objects independently of their attributes and investigate any aspect of them as so regarded, we shall not be guilty of any error on this account, any more than when we draw a diagram on the ground and say that a line is a foot long when it is not; because the error is not in the premises. The best way to conduct an investigation in every case is to take that which does not exist in separation and consider it separately; which is just what the arithmetician or the geometrician does."
 > 
