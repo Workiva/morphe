@@ -2,7 +2,8 @@
   :description "A Clojure utility for defining and applying aspects for functions."
   :url "https://github.com/Workiva/morphe"
   :license {:name "Eclipse Public License 1.0"}
-  :plugins [[lein-shell "0.5.0"]
+  :plugins [[lein-cljfmt "0.6.4"]
+            [lein-shell "0.5.0"]
             [lein-codox "0.10.3"]]
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.macro "0.1.2"]

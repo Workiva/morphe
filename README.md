@@ -1,13 +1,33 @@
-# Morphe (μορφή)
+# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe)
 
 > "Thus if we regard objects independently of their attributes and investigate any aspect of them as so regarded, we shall not be guilty of any error on this account, any more than when we draw a diagram on the ground and say that a line is a foot long when it is not; because the error is not in the premises. The best way to conduct an investigation in every case is to take that which does not exist in separation and consider it separately; which is just what the arithmetician or the geometrician does."
 > 
 > Aristotle, *Metaphysics*
 
-```
-[com.workiva/morphe "1.0.0"]
-```
 ---
+
+<!-- toc -->
+
+- [How does it work?](#how-does-it-work)
+- [Details](#details)
+- [`morphe.core` utilities](#morphecore-utilities)
+    + [`defn`](#defn)
+    + [`parse-defn: [&form &env name & fdecl]`](#parse-defn-form-env-name--fdecl)
+    + [`fn-form->defn: [fn-form]`](#fn-form-defn-fn-form)
+    + [`prefix-form: [fn-form expression]`](#prefix-form-fn-form-expression)
+    + [`alter-form: [fn-form expression]`](#alter-form-fn-form-expression)
+    + [`prefix-bodies: [fn-form expression]`](#prefix-bodies-fn-form-expression)
+    + [`alter-bodies: [fn-form expression]`](#alter-bodies-fn-form-expression)
+    + [`*warn-on-noop*`](#warn-on-noop)
+- [Examples](#examples)
+  * [Logging/tracing call sites](#loggingtracing-call-sites)
+  * [Tagging for metrics](#tagging-for-metrics)
+  * [Mix & match](#mix--match)
+  * [Macrotic Transformations](#macrotic-transformations)
+- [Contributing](#contributing)
+    + [Contributors](#contributors)
+
+<!-- tocstop -->
 
 Gather round, and I shall tell you a fine tale. Once upon a time, there was a simple function in an API, a thin wrapper over more meaty code:
 
