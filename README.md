@@ -1,4 +1,4 @@
-# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe)
+# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe) [![CircleCI](https://circleci.com/gh/Workiva/morphe.svg?style=svg)](https://circleci.com/gh/Workiva/morphe)
 
 > "Thus if we regard objects independently of their attributes and investigate any aspect of them as so regarded, we shall not be guilty of any error on this account, any more than when we draw a diagram on the ground and say that a line is a foot long when it is not; because the error is not in the premises. The best way to conduct an investigation in every case is to take that which does not exist in separation and consider it separately; which is just what the arithmetician or the geometrician does."
 > 
@@ -163,7 +163,7 @@ If your use case is complex, you can modify the FnForm record directly. If you h
 
 ## `morphe.core` utilities
 
-Clojure's `defmacro` is an [anaphoric macro](https://en.wikipedia.org/wiki/Anaphoric_macro). Code inside `defmacro` has access to two special variables, `&env` and `&form`. `&env` is "a map of local bindings at the point of macro expansion. The env map is from symbols to objects holding compiler information about that binding." `&form` is "the actual form (as data) that is being invoked." 
+Clojure's `defmacro` is an [anaphoric macro](https://en.wikipedia.org/wiki/Anaphoric_macro). Code inside `defmacro` has access to two special variables, `&env` and `&form`. `&env` is "a map of local bindings at the point of macro expansion. The env map is from symbols to objects holding compiler information about that binding." `&form` is "the actual form (as data) that is being invoked."
 
 Many of morphe's utilities follow this theme. Depending on the utility, some of the following variables are available:
 
