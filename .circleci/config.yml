@@ -149,7 +149,7 @@ jobs:
       - run: lein deploy clojars
 
 workflows:
-  lint_build_deploy:
+  morphe_workflow:
     jobs:
       - checkout_code:
           filters:
@@ -194,7 +194,6 @@ workflows:
       - build_jar:
           requires:
             - verify_license_headers
-            - verify_docker_build
             - lint_code
             - verify_docs
             - unit_tests
