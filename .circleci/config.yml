@@ -36,7 +36,7 @@ jobs:
             - v1-dependencies-{{ checksum "project.clj" }}
             - v1-node-dependencies-{{ checksum "package.json" }}
       - run: lein deps
-      - run: npm install markdown-toc
+      - run: npm install
       - save_cache:
           key: v1-dependencies-{{ checksum "project.clj" }}
           paths:
@@ -54,8 +54,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: lein cljfmt check
 
@@ -67,9 +65,8 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
+            - v1-node-dependencies-{{ checksum "package.json" }}
       - run: ./.circleci/scripts/verify-docs.sh
       - run: cd ./documentation && tar cvfz "../morphe-docs.tgz" ./
       - run: mkdir -p ./artifacts/docs
@@ -85,8 +82,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: ./.circleci/scripts/verify-license-headers.sh "clj" "^;; Copyright 2017-[0-9]{4} Workiva Inc.$" project.clj profiles.clj
 
@@ -98,8 +93,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: lein test
 
@@ -111,8 +104,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
       - run: lein jar
       - run: mkdir -p ./artifacts/jars
@@ -142,9 +133,8 @@ jobs:
       - restore_cache:
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
             - v1-dependencies-{{ checksum "project.clj" }}
+      - run: mkdir -p ~/.lein
       - run: cp ./.circleci/clojars/profiles.clj ~/.lein/profiles.clj
       - run: lein deploy clojars
 
@@ -204,6 +194,7 @@ workflows:
           context: Clojars
           requires:
             - build_jar
+            - verify_docker_build
           # Only run on tagged builds starting with 'v'
           # Therefore, releases MUST start with 'v'
           filters:

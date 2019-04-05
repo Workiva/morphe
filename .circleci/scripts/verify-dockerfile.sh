@@ -2,7 +2,7 @@
 
 # Checks if either the `docker build ...` command exited with '0' or
 # if the dockerfile ends with FROM scratch, no image will be generated which
-# causes exit code '1', however this is valid from our internal CI's perspective
+# causes exit code '1', however this is a valid condition from our perspective.
 
 COLOR_NC='\e[0m'
 COLOR_GREEN='\e[0;32m'

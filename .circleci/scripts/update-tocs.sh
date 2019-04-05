@@ -4,4 +4,4 @@
 MAX_DEPTH=4
 
 # Parent README
-markdown-toc -i README.md --maxdepth $MAX_DEPTH
+npx markdown-toc -i README.md --maxdepth $MAX_DEPTH

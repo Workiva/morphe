@@ -8,7 +8,7 @@
 
 <!-- toc -->
 
-- [What Is It?](#what-is-it)
+- [Overview](#overview)
 - [How does it work?](#how-does-it-work)
 - [API Documentation](#api-documentation)
 - [Details](#details)
@@ -32,7 +32,7 @@
 
 <!-- tocstop -->
 
-## What Is It?
+## Overview
 
 Gather round, and I shall tell you a fine tale. Once upon a time, there was a simple function in an API, a thin wrapper over more meaty code:
 
@@ -156,7 +156,7 @@ This is equivalent to the following method, which does not use any convenience f
 
 ## API Documentation
 
-[API documentation can be found here.](/documentation/index.html)
+[Clojure API documentation can be found here.](/documentation/index.html)
 
 ## Details
 
