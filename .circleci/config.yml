@@ -145,6 +145,8 @@ workflows:
           filters:
             tags:
               only: /.*/
+            branches:
+              ignore: /[0-9a-f]{7}_cr_no_smithy/
       - bundle_dependencies:
           requires:
             - checkout_code
