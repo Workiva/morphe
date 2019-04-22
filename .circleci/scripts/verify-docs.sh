@@ -1,5 +1,6 @@
 #!/bin/bash
 # Verifies that docs have been generated and updated
+GREEN='\e[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
@@ -13,7 +14,7 @@ MD5_ROOT_README_BEFORE=$(find README.md -type f -exec $md5Command {} \; | sort -
 MD5_DOCS_BEFORE=$(find ./documentation -type f -exec $md5Command {} \; | sort -k 2 | $md5Command)
 
 # Update Table of Contents
-./scripts/update-tocs.sh
+./.circleci/scripts/update-tocs.sh
 # Update Codox documentation
 lein docs
 
@@ -30,7 +31,9 @@ fi
 
 # Verify ./documentation content
 if [ "$MD5_DOCS_BEFORE" != "$MD5_DOCS_AFTER" ]; then
-    printf "${RED}Aborting, ./documentation TOC(s) were not updated${NC}\n"
+    printf "${RED}Aborting, ./documentation was not updated${NC}\n"
     printf "${RED}Run lein docs${NC}\n"
     exit 1
 fi
+
+printf "${GREEN}Documentation verified successfully${NC}\n"

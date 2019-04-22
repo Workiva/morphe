@@ -23,7 +23,7 @@ EXCLUDE_LIST=( ${EXCLUDE_LIST[@]:2} )
 printf $COLOR_CYAN
 printf "Extension - $EXTENSION\n"
 printf "REGEX - $REGEX\n"
-printf "EXCLUDE LIST - ${EXCLUDE_LIST[@]}\n\n"
+printf "EXCLUDE LIST - ${EXCLUDE_LIST[*]}\n\n"
 printf "$COLOR_NC\n"
 
 missingHeader=false

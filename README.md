@@ -1,4 +1,4 @@
-# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe)
+# Morphe (μορφή) [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/morphe.svg)](https://clojars.org/com.workiva/morphe) [![CircleCI](https://circleci.com/gh/Workiva/morphe/tree/master.svg?style=svg)](https://circleci.com/gh/Workiva/morphe/tree/master)
 
 > "Thus if we regard objects independently of their attributes and investigate any aspect of them as so regarded, we shall not be guilty of any error on this account, any more than when we draw a diagram on the ground and say that a line is a foot long when it is not; because the error is not in the premises. The best way to conduct an investigation in every case is to take that which does not exist in separation and consider it separately; which is just what the arithmetician or the geometrician does."
 > 
@@ -8,7 +8,9 @@
 
 <!-- toc -->
 
+- [Overview](#overview)
 - [How does it work?](#how-does-it-work)
+- [API Documentation](#api-documentation)
 - [Details](#details)
 - [`morphe.core` utilities](#morphecore-utilities)
     + [`defn`](#defn)
@@ -24,10 +26,13 @@
   * [Tagging for metrics](#tagging-for-metrics)
   * [Mix & match](#mix--match)
   * [Macrotic Transformations](#macrotic-transformations)
-- [Contributing](#contributing)
-    + [Contributors](#contributors)
+- [Maintainers and Contributors](#maintainers-and-contributors)
+  * [Active Maintainers](#active-maintainers)
+  * [Previous Contributors](#previous-contributors)
 
 <!-- tocstop -->
+
+## Overview
 
 Gather round, and I shall tell you a fine tale. Once upon a time, there was a simple function in an API, a thin wrapper over more meaty code:
 
@@ -149,13 +154,17 @@ This is equivalent to the following method, which does not use any convenience f
                                              args)))))))
 ```
 
+## API Documentation
+
+[Clojure API documentation can be found here.](/documentation/index.html)
+
 ## Details
 
 If your use case is complex, you can modify the FnForm record directly. If you have never written [Clojure macros](https://clojure.org/reference/macros), there are a few tricky things to this process. The community is helpful, and help is also available in [book](https://www.braveclojure.com/writing-macros/) [form](https://www.amazon.com/Lisp-Advanced-Techniques-Common/dp/0130305529).
 
 ## `morphe.core` utilities
 
-Clojure's `defmacro` is an [anaphoric macro](https://en.wikipedia.org/wiki/Anaphoric_macro). Code inside `defmacro` has access to two special variables, `&env` and `&form`. `&env` is "a map of local bindings at the point of macro expansion. The env map is from symbols to objects holding compiler information about that binding." `&form` is "the actual form (as data) that is being invoked." 
+Clojure's `defmacro` is an [anaphoric macro](https://en.wikipedia.org/wiki/Anaphoric_macro). Code inside `defmacro` has access to two special variables, `&env` and `&form`. `&env` is "a map of local bindings at the point of macro expansion. The env map is from symbols to objects holding compiler information about that binding." `&form` is "the actual form (as data) that is being invoked."
 
 Many of morphe's utilities follow this theme. Depending on the utility, some of the following variables are available:
 
@@ -428,16 +437,12 @@ In the examples so far, similar effects could be achieved via (possibly clunky) 
        (expensive-calculation x))))
 ```
 
-## Contributing
+## Maintainers and Contributors
 
-1. Branch and PR to master
-2. Maintainers will review.
+### Active Maintainers
 
-Guidelines:
+-
 
- * [generally good style](https://github.com/bbatsov/clojure-style-guide)
- * [clear commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
- * tests where appropriate
+### Previous Contributors
 
-#### Contributors
-Timothy Dean <[timothy.dean@workiva.com](mailto:timothy.dean@workiva.com)>
+- Timothy Dean <galdre@gmail.com>
