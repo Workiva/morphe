@@ -1,4 +1,4 @@
-(defproject com.workiva/morphe "1.0.0"
+(defproject com.workiva/morphe "1.0.1"
   :description "A Clojure utility for defining and applying aspects for functions."
   :url "https://github.com/Workiva/morphe"
   :license {:name "Eclipse Public License 1.0"}
